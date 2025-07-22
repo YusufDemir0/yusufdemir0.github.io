@@ -2,41 +2,47 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yusuf Demir - Kişisel Web Sitesi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yusuf Demir - Geliştirici</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Yusuf Demir</h1>
-    <p>Bilgisayar Mühendisliği Öğrencisi | Frontend Developer</p>
+  <nav class="navbar">
+    <div class="container">
+      <h1>Yusuf Demir</h1>
+      <div class="nav-links">
+        <button id="lang-toggle">EN</button>
+        <button id="theme-toggle">🌙</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h2 data-tr="Frontend & Yapay Zeka Geliştiricisi">Frontend & AI Developer</h2>
+      <p data-tr="Kocaeli Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisi.">4th year CS student at Kocaeli University.</p>
+    </div>
   </header>
 
-  <section id="projects">
-    <h2>Projelerim</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Geçerken Uğradım</h3>
-        <p>Turizm ve kültür merkezlerini güzergaha göre öneren navigasyon uygulaması.</p>
-        <a href="https://github.com/YusufDemir0/gecerken-ugradim" target="_blank">GitHub</a>
-      </div>
-      <div class="project-card">
-        <h3>No Homeless People</h3>
-        <p>Evsiz bireylerin ihtiyaçlarını toplumla buluşturan sosyal yardım platformu.</p>
-        <a href="https://github.com/YusufDemir0/no-homeless-people" target="_blank">GitHub</a>
-      </div>
-      <!-- Yeni projeler için buraya kart ekle -->
+  <section id="projects" class="container">
+    <h3 data-tr="Projelerim">My Projects</h3>
+    <div id="project-grid" class="project-grid">
+      <!-- Projeler JS ile yüklenecek -->
     </div>
   </section>
 
-  <section id="about">
-    <h2>Hakkımda</h2>
-    <p>Merhaba! Ben Yusuf, Kocaeli Üniversitesi’nde Bilgisayar Mühendisliği okuyorum. Frontend geliştirme, React Native ve yapay zeka ile ilgileniyorum.</p>
+  <section id="about" class="container">
+    <h3 data-tr="Hakkımda">About Me</h3>
+    <p data-tr="Merhaba! React, React Native ve yapay zeka teknolojileriyle ilgileniyorum. Projelerimi toplumsal fayda odaklı geliştiriyorum.">
+      Hello! I'm passionate about React, React Native, and AI technologies. I develop my projects to serve social good.
+    </p>
   </section>
 
-  <section id="contact">
-    <h2>İletişim</h2>
-    <p>Bana ulaşmak için <a href="mailto:mailadresin@gmail.com">mailadresin@gmail.com</a> adresine e-posta gönderebilirsiniz.</p>
+  <section id="contact" class="container">
+    <h3 data-tr="İletişim">Contact</h3>
+    <p><a href="mailto:yusufdemir.dev@gmail.com">yusufdemir.dev@gmail.com</a></p>
+    <p><a href="https://github.com/YusufDemir0" target="_blank">GitHub.com/YusufDemir0</a></p>
   </section>
 
   <footer>
