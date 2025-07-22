@@ -3,7 +3,11 @@
   {
     "name": "No Homeless People",
     "description": "Evsiz bireylerin ihtiyaçlarını gösteren sosyal platform.",
-    "link": "https://github.com/YusufDemir0/no-homeless-people",
-    "image": "assets/images/nohomeless.png"
+    "link": "https://github.com/YusufDemir0/no-homeless-people"
+  },
+  {
+    "name": "Geçerken Uğradım",
+    "description": "Turistik güzergah öneri sistemi.",
+    "link": "https://github.com/YusufDemir0"
   }
 ]
