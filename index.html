@@ -1,48 +1,226 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yusuf Demir - Portfolyo</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yusuf Demir | Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-css-reset/dist/reset.min.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body data-theme="light">
-  <nav class="navbar">
-    <h1>Yusuf Demir</h1>
-    <div>
-      <button id="lang-toggle">EN</button>
-      <button id="theme-toggle">🌙</button>
-      <a href="admin/panel.html">🛠️</a>
-    </div>
-  </nav>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      background: var(--bg);
+      color: var(--fg);
+      transition: background 0.3s, color 0.3s;
+    }
+    :root {
+      --bg: #0f0f0f;
+      --fg: #fff;
+      --accent: #4fc3f7;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #121212;
+    }
 
-  <header class="hero animate-in">
-    <h2 data-tr="Yazılım Geliştirici & Yapay Zeka Meraklısı">Developer & AI Enthusiast</h2>
-    <p data-tr="Projelerim, blog yazılarım ve iletişim bilgilerim.">My projects, blog posts, and contact info.</p>
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+    h2 { margin-top: 3rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; }
+
+    .controls {
+      margin: 1rem 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card {
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    input, textarea, button {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      background: #222;
+      color: white;
+    }
+
+    form button {
+      background: var(--accent);
+      color: black;
+      cursor: pointer;
+    }
+
+    .tag {
+      background: var(--accent);
+      color: black;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 5px;
+      font-size: 0.8rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="name">Yusuf Demir</h1>
+    <p id="bio">Yapay Zeka · Web · Mobil · Açık Kaynak</p>
+    <div class="controls">
+      <button id="lang-toggle">🇹🇷</button>
+      <button id="theme-toggle">🌙</button>
+    </div>
   </header>
 
-  <section id="projects" class="container">
-    <h3 data-tr="Projeler">Projects</h3>
-    <div id="project-list" class="grid animate-in"></div>
+  <section>
+    <h2 id="projects-title">📦 Projelerim</h2>
+    <input type="text" id="project-search" placeholder="🔍 Proje ara...">
+    <div id="project-list" class="grid"></div>
   </section>
 
-  <section id="blog" class="container">
-    <h3 data-tr="Blog">Blog</h3>
-    <div id="post-list" class="grid animate-in"></div>
+  <section>
+    <h2 id="blog-title">📝 Blog</h2>
+    <div id="post-list"></div>
   </section>
 
-  <section id="contact" class="container animate-in">
-    <h3 data-tr="İletişim">Contact</h3>
-    <form id="contact-form" action="https://formspree.io/f/your-id" method="POST">
+  <section>
+    <h2 id="contact-title">📬 İletişim</h2>
+    <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
       <input type="text" name="name" placeholder="Adınız" required />
-      <input type="email" name="email" placeholder="E-posta" required />
-      <textarea name="message" placeholder="Mesajınız" required></textarea>
-      <button type="submit" data-tr="Gönder">Send</button>
+      <input type="email" name="_replyto" placeholder="E-posta" required />
+      <textarea name="message" rows="5" placeholder="Mesajınız" required></textarea>
+      <button type="submit">Gönder</button>
     </form>
   </section>
 
-  <footer>© 2025 Yusuf Demir</footer>
+  <script>
+    const username = "YusufDemir0";
+
+    async function fetchProjects() {
+      const repoRes = await fetch(`https://api.github.com/users/${username}/repos`);
+      const repos = await repoRes.json();
+      const container = document.getElementById("project-list");
+      container.innerHTML = "";
+
+      for (const repo of repos) {
+        const readmeRes = await fetch(`https://raw.githubusercontent.com/${username}/${repo.name}/main/README.md`);
+        const readme = await readmeRes.text().catch(() => "");
+        const imgMatch = readme.match(/!\[.*?\]\((.*?)\)/);
+        const img = imgMatch ? imgMatch[1] : null;
+
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <h3>${repo.name}</h3>
+          <p>${repo.description || "Açıklama yok."}</p>
+          ${img ? `<img src="${img}" style="max-width:100%; margin:1rem 0;" />` : ""}
+          <p><a href="${repo.html_url}" target="_blank">🔗 GitHub</a></p>
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    function setupSearch() {
+      const input = document.getElementById("project-search");
+      input.addEventListener("input", () => {
+        const query = input.value.toLowerCase();
+        document.querySelectorAll("#project-list .card").forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(query) ? "block" : "none";
+        });
+      });
+    }
+
+    async function loadBlog() {
+      const blogContainer = document.getElementById("post-list");
+
+      const posts = [
+        { title: "Yapay Zeka ile Gelecek", file: "https://raw.githubusercontent.com/YusufDemir0/blogs/main/ai-future.md" },
+        { title: "GitHub Pages ile Site Yayınlama", file: "https://raw.githubusercontent.com/YusufDemir0/blogs/main/github-pages.md" }
+      ];
+
+      for (const post of posts) {
+        const md = await fetch(post.file).then(res => res.text());
+        const html = marked.parse(md);
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `<h4>${post.title}</h4>${html}`;
+        blogContainer.appendChild(div);
+      }
+    }
+
+    function setupLang() {
+      const langs = {
+        tr: {
+          name: "Yusuf Demir",
+          bio: "Yapay Zeka · Web · Mobil · Açık Kaynak",
+          projects: "📦 Projelerim",
+          blog: "📝 Blog",
+          contact: "📬 İletişim"
+        },
+        en: {
+          name: "Yusuf Demir",
+          bio: "AI · Web · Mobile · Open Source",
+          projects: "📦 My Projects",
+          blog: "📝 Blog",
+          contact: "📬 Contact"
+        }
+      };
+      let current = "tr";
+      document.getElementById("lang-toggle").addEventListener("click", () => {
+        current = current === "tr" ? "en" : "tr";
+        const t = langs[current];
+        document.getElementById("name").textContent = t.name;
+        document.getElementById("bio").textContent = t.bio;
+        document.getElementById("projects-title").textContent = t.projects;
+        document.getElementById("blog-title").textContent = t.blog;
+        document.getElementById("contact-title").textContent = t.contact;
+        document.getElementById("lang-toggle").textContent = current === "tr" ? "🇹🇷" : "🇺🇸";
+      });
+    }
+
+    function setupThemeToggle() {
+      const toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("click", () => {
+        const current = document.body.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        document.body.setAttribute("data-theme", next);
+        toggle.innerText = next === "dark" ? "🌙" : "☀️";
+      });
+    }
+
+    // 🚀 INIT
+    fetchProjects();
+    loadBlog();
+    setupLang();
+    setupThemeToggle();
+    setupSearch();
+  </script>
 </body>
 </html>
