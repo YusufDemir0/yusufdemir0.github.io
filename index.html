@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yusuf Demir - Kişisel Site</title>
+  <title>Yusuf Demir - Portfolyo</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body data-theme="light">
   <nav class="navbar">
@@ -13,25 +14,35 @@
     <div>
       <button id="lang-toggle">EN</button>
       <button id="theme-toggle">🌙</button>
+      <a href="admin/panel.html">🛠️</a>
     </div>
   </nav>
-  <header class="hero">
+
+  <header class="hero animate-in">
     <h2 data-tr="Yazılım Geliştirici & Yapay Zeka Meraklısı">Developer & AI Enthusiast</h2>
     <p data-tr="Projelerim, blog yazılarım ve iletişim bilgilerim.">My projects, blog posts, and contact info.</p>
   </header>
+
   <section id="projects" class="container">
     <h3 data-tr="Projeler">Projects</h3>
-    <div id="project-list" class="grid"></div>
+    <div id="project-list" class="grid animate-in"></div>
   </section>
+
   <section id="blog" class="container">
     <h3 data-tr="Blog">Blog</h3>
-    <div id="post-list" class="grid"></div>
+    <div id="post-list" class="grid animate-in"></div>
   </section>
-  <section id="contact" class="container">
+
+  <section id="contact" class="container animate-in">
     <h3 data-tr="İletişim">Contact</h3>
-    <p><a href="mailto:yusufdemir.dev@gmail.com">yusufdemir.dev@gmail.com</a></p>
-    <p><a href="https://github.com/YusufDemir0" target="_blank">GitHub.com/YusufDemir0</a></p>
+    <form id="contact-form" action="https://formspree.io/f/your-id" method="POST">
+      <input type="text" name="name" placeholder="Adınız" required />
+      <input type="email" name="email" placeholder="E-posta" required />
+      <textarea name="message" placeholder="Mesajınız" required></textarea>
+      <button type="submit" data-tr="Gönder">Send</button>
+    </form>
   </section>
+
   <footer>© 2025 Yusuf Demir</footer>
 </body>
 </html>

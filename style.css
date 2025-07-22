@@ -40,3 +40,29 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+.animate-in {
+  animation: fadeIn 1s ease-out both;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 400px;
+}
+form input, form textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+form button {
+  padding: 0.5rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}

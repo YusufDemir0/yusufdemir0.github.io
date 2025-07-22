@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Panel - Proje & Blog</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <h2>Yeni Proje Ekle</h2>
+  <form onsubmit="saveProject(event)">
+    <input type="text" id="pname" placeholder="Proje Adı" required />
+    <input type="text" id="pdesc" placeholder="Açıklama" required />
+    <input type="url" id="plink" placeholder="GitHub Linki" required />
+    <button>Kaydet</button>
+  </form>
+  <h2>Yeni Blog Ekle (Markdown)</h2>
+  <form onsubmit="savePost(event)">
+    <input type="text" id="btitle" placeholder="Başlık" required />
+    <textarea id="bcontent" placeholder="Markdown içerik" rows="6"></textarea>
+    <button>Kaydet</button>
+  </form>
+  <script>
+    function saveProject(e) {
+      e.preventDefault();
+      alert("Proje JSON'a manuel eklenmelidir.");
+    }
+    function savePost(e) {
+      e.preventDefault();
+      alert("Blog dosyası blog/ klasörüne eklenmelidir.");
+    }
+  </script>
+</body>
+</html>
