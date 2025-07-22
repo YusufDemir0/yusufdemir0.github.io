@@ -1,4 +1,4 @@
-// Dark mode toggle
+
 const themeToggle = document.getElementById("theme-toggle");
 themeToggle.onclick = () => {
   const current = document.documentElement.getAttribute("data-theme");
@@ -6,7 +6,6 @@ themeToggle.onclick = () => {
   document.documentElement.setAttribute("data-theme", newTheme);
 };
 
-// Language toggle (TR/EN)
 const langToggle = document.getElementById("lang-toggle");
 langToggle.onclick = () => {
   const lang = langToggle.textContent === "EN" ? "TR" : "EN";
@@ -19,10 +18,8 @@ langToggle.onclick = () => {
   });
 };
 
-// GitHub API'den projeleri çek
 const username = "YusufDemir0";
 const projectGrid = document.getElementById("project-grid");
-
 fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
   .then(res => res.json())
   .then(data => {
@@ -36,7 +33,20 @@ fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
       `;
       projectGrid.appendChild(card);
     });
-  })
-  .catch(() => {
-    projectGrid.innerHTML = "<p>Projeler yüklenemedi.</p>";
+  });
+
+const blogGrid = document.getElementById("blog-grid");
+fetch("data/posts.json")
+  .then(res => res.json())
+  .then(posts => {
+    posts.forEach(post => {
+      const card = document.createElement("div");
+      card.className = "blog-card";
+      card.innerHTML = `
+        <h4>${post.title}</h4>
+        <p>${post.excerpt}</p>
+        <small>${post.date}</small>
+      `;
+      blogGrid.appendChild(card);
+    });
   });
